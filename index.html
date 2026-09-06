@@ -1,0 +1,579 @@
+﻿<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ราคาทองคำแท่งไทย</title>
+
+  <style>
+    :root {
+      --bg: #f3f4f6;
+      --white: #ffffff;
+      --gold: #b88716;
+      --gold-dark: #735100;
+      --gold-light: #fff8df;
+      --text: #202124;
+      --muted: #666;
+      --border: #d6b75d;
+      --green: #16843b;
+      --green-bg: #e3f6e9;
+      --red: #c62828;
+      --red-bg: #ffebeb;
+      --gray: #777;
+      --gray-bg: #ddd;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        linear-gradient(90deg, rgba(184, 135, 22, .05) 2px, transparent 2px),
+        var(--bg);
+      background-size: 28px 100%;
+      color: var(--text);
+      font-family: Arial, Tahoma, sans-serif;
+      font-size: 19px;
+      line-height: 1.4;
+    }
+
+    .page {
+      width: min(820px, 100%);
+      margin: auto;
+      padding: 12px 16px 18px;
+    }
+
+    .top-line {
+      height: 6px;
+      margin-bottom: 12px;
+      border-radius: 20px;
+      background: linear-gradient(
+        90deg,
+        #987016,
+        #f8e6a2,
+        #c99725,
+        #987016
+      );
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin-bottom: 13px;
+      padding: 12px 16px;
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      background: var(--white);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, .1);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 52px;
+      width: 52px;
+      height: 52px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      background: var(--gold-light);
+      color: var(--gold-dark);
+      font-size: 29px;
+      font-weight: bold;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--gold-dark);
+      font-size: clamp(28px, 5vw, 42px);
+      line-height: 1.15;
+    }
+
+    .subtitle {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: clamp(17px, 3vw, 22px);
+    }
+
+    .price-card {
+      position: relative;
+      overflow: hidden;
+      padding: 18px 22px;
+      border: 2px solid var(--border);
+      border-radius: 17px;
+      background: var(--white);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .11);
+    }
+
+    .price-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 27%;
+      height: 100%;
+      opacity: .1;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--gold),
+        var(--gold) 2px,
+        transparent 2px,
+        transparent 13px
+      );
+      mask-image: linear-gradient(to left, black, transparent);
+    }
+
+    .card-title {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      color: var(--gold-dark);
+      font-size: clamp(26px, 5vw, 36px);
+      line-height: 1.2;
+    }
+
+    .card-subtitle {
+      position: relative;
+      z-index: 1;
+      margin: 3px 0 14px;
+      color: var(--muted);
+      font-size: clamp(16px, 3vw, 21px);
+    }
+
+    .price-row {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      align-items: center;
+      gap: 15px;
+      padding: 13px 0;
+      border-top: 2px solid #eee;
+    }
+
+    .price-label {
+      font-size: clamp(23px, 4vw, 31px);
+      font-weight: bold;
+    }
+
+    .price-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: 64px;
+      padding: 6px 12px;
+      border: 2px solid #e0c572;
+      border-radius: 11px;
+      background: var(--gold-light);
+    }
+
+    .price {
+      color: var(--gold-dark);
+      font-size: clamp(28px, 6vw, 45px);
+      font-weight: bold;
+      line-height: 1.15;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .direction {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 45px;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      font-size: 27px;
+      font-weight: bold;
+      line-height: 1;
+    }
+
+    .up {
+      border: 2px solid var(--green);
+      background: var(--green-bg);
+      color: var(--green);
+    }
+
+    .down {
+      border: 2px solid var(--red);
+      background: var(--red-bg);
+      color: var(--red);
+    }
+
+    .same {
+      border: 2px solid var(--gray);
+      background: var(--gray-bg);
+      color: var(--gray);
+    }
+
+    .information {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .info-box {
+      padding: 9px 12px;
+      border: 1px solid #ddd;
+      border-radius: 9px;
+      background: #fafafa;
+    }
+
+    .info-label {
+      display: block;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .info-value {
+      display: block;
+      color: var(--gold-dark);
+      font-size: clamp(17px, 3vw, 22px);
+      font-weight: bold;
+    }
+
+    #status {
+      min-height: 27px;
+      margin: 12px 0 4px;
+      color: var(--green);
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .error {
+      color: var(--red) !important;
+    }
+
+    #refreshButton {
+      width: 100%;
+      min-height: 57px;
+      margin-top: 10px;
+      padding: 9px 16px;
+      border: 2px solid #8d650e;
+      border-radius: 11px;
+      background: var(--gold);
+      color: white;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: clamp(22px, 4vw, 28px);
+      font-weight: bold;
+    }
+
+    #refreshButton:hover,
+    #refreshButton:focus {
+      background: #946b0d;
+      outline: 3px solid rgba(184, 135, 22, .25);
+      outline-offset: 2px;
+    }
+
+    #refreshButton:disabled {
+      border-color: #999;
+      background: #999;
+      color: #eee;
+      cursor: not-allowed;
+      pointer-events: none;
+      opacity: 1;
+    }
+
+    .footer {
+      margin-top: 9px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    @media (max-width: 600px) {
+      .page {
+        padding: 9px 10px 14px;
+      }
+
+      header {
+        margin-bottom: 10px;
+        padding: 10px 12px;
+      }
+
+      .logo {
+        flex-basis: 46px;
+        width: 46px;
+        height: 46px;
+        font-size: 26px;
+      }
+
+      .price-card {
+        padding: 15px;
+      }
+
+      .price-row {
+        grid-template-columns: 1fr;
+        gap: 7px;
+        padding: 11px 0;
+      }
+
+      .price-box {
+        min-height: 60px;
+      }
+
+      .information {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="top-line"></div>
+
+    <header>
+      <div class="logo">฿</div>
+
+      <div>
+        <h1>ราคาทองคำไทย</h1>
+        <p class="subtitle">ราคาทองคำแท่ง 96.5%</p>
+      </div>
+    </header>
+
+    <main>
+      <section class="price-card">
+        <h2 class="card-title">ทองคำแท่ง 96.5%</h2>
+        <p class="card-subtitle">หน่วย: บาทต่อทองคำ 1 บาท</p>
+
+        <div class="price-row">
+          <div class="price-label">รับซื้อ</div>
+
+          <div class="price-box">
+            <span id="barBuyArrow"
+              class="direction same"
+              aria-label="ราคาไม่เปลี่ยน">—</span>
+
+            <span id="barBuy" class="price">-</span>
+          </div>
+        </div>
+
+        <div class="price-row">
+          <div class="price-label">ขายออก</div>
+
+          <div class="price-box">
+            <span id="barSellArrow"
+              class="direction same"
+              aria-label="ราคาไม่เปลี่ยน">—</span>
+
+            <span id="barSell" class="price">-</span>
+          </div>
+        </div>
+
+        <div class="information">
+          <div class="info-box">
+            <span class="info-label">วันที่ประกาศ</span>
+            <span id="updateDate" class="info-value">-</span>
+          </div>
+
+          <div class="info-box">
+            <span class="info-label">เวลาปรับราคา</span>
+            <span id="updateTime" class="info-value">-</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <p id="status" aria-live="polite">กำลังโหลดข้อมูล...</p>
+
+    <button id="refreshButton" type="button">
+      ↻ อัปเดตราคา
+    </button>
+
+    <div class="footer">
+      อัปเดตอัตโนมัติทุก 20 วินาที<br>
+      ข้อมูลจากบริการที่อ้างอิงราคาสมาคมค้าทองคำ
+    </div>
+  </div>
+
+  <script>
+    const API_URL =
+      "https://api.chnwt.dev/thai-gold-api/latest";
+
+    const STORAGE_KEY = "thaiGoldBarPreviousPrices";
+    const AUTO_REFRESH_TIME = 20000;
+    const BUTTON_LOCK_TIME = 1500;
+
+    const refreshButton =
+      document.getElementById("refreshButton");
+
+    let isLoading = false;
+
+    function toNumber(value) {
+      const number = Number(String(value).replace(/,/g, ""));
+      return Number.isFinite(number) ? number : null;
+    }
+
+    function formatBaht(value) {
+      const number = toNumber(value);
+
+      if (number === null) {
+        return "-";
+      }
+
+      return new Intl.NumberFormat("th-TH", {
+        style: "currency",
+        currency: "THB",
+        minimumFractionDigits: 2
+      }).format(number);
+    }
+
+    function updateArrow(arrowId, currentValue, previousValue) {
+      const arrow = document.getElementById(arrowId);
+      const current = toNumber(currentValue);
+      const previous = toNumber(previousValue);
+
+      arrow.className = "direction same";
+      arrow.textContent = "—";
+      arrow.setAttribute("aria-label", "ราคาไม่เปลี่ยน");
+
+      if (current === null || previous === null) {
+        return;
+      }
+
+      if (current > previous) {
+        arrow.className = "direction up";
+        arrow.textContent = "▲";
+        arrow.setAttribute("aria-label", "ราคาขึ้น");
+      }
+
+      if (current < previous) {
+        arrow.className = "direction down";
+        arrow.textContent = "▼";
+        arrow.setAttribute("aria-label", "ราคาลง");
+      }
+    }
+
+    function lockButton() {
+      refreshButton.disabled = true;
+      refreshButton.textContent = "กำลังอัปเดต...";
+
+      setTimeout(() => {
+        refreshButton.disabled = false;
+        refreshButton.textContent = "↻ อัปเดตราคา";
+      }, BUTTON_LOCK_TIME);
+    }
+
+    async function loadGoldPrice() {
+      if (isLoading) {
+        return;
+      }
+
+      isLoading = true;
+      lockButton();
+
+      const status = document.getElementById("status");
+
+      status.className = "";
+      status.textContent = "กำลังอัปเดตราคาล่าสุด...";
+
+      try {
+        const response = await fetch(API_URL, {
+          cache: "no-store"
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (!data.response || !data.response.price) {
+          throw new Error("รูปแบบข้อมูลไม่ถูกต้อง");
+        }
+
+        const result = data.response;
+        const price = result.price;
+
+        const currentBarBuy =
+          toNumber(price.gold_bar?.buy);
+
+        const currentBarSell =
+          toNumber(price.gold_bar?.sell);
+
+        const oldData = JSON.parse(
+          localStorage.getItem(STORAGE_KEY) || "null"
+        );
+
+        const sameDate =
+          oldData &&
+          oldData.updateDate === result.update_date;
+
+        const previousBarBuy =
+          sameDate ? oldData.barBuy : null;
+
+        const previousBarSell =
+          sameDate ? oldData.barSell : null;
+
+        document.getElementById("barBuy").textContent =
+          formatBaht(currentBarBuy);
+
+        document.getElementById("barSell").textContent =
+          formatBaht(currentBarSell);
+
+        updateArrow(
+          "barBuyArrow",
+          currentBarBuy,
+          previousBarBuy
+        );
+
+        updateArrow(
+          "barSellArrow",
+          currentBarSell,
+          previousBarSell
+        );
+
+        document.getElementById("updateDate").textContent =
+          result.update_date || "-";
+
+        document.getElementById("updateTime").textContent =
+          result.update_time || "-";
+
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify({
+            updateDate: result.update_date,
+            barBuy: currentBarBuy,
+            barSell: currentBarSell
+          })
+        );
+
+        status.textContent = "อัปเดตข้อมูลสำเร็จ";
+      } catch (error) {
+        console.error(error);
+        status.className = "error";
+        status.textContent =
+          "ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่อีกครั้ง";
+      } finally {
+        isLoading = false;
+      }
+    }
+
+    refreshButton.addEventListener(
+      "click",
+      loadGoldPrice
+    );
+
+    loadGoldPrice();
+
+    setInterval(
+      loadGoldPrice,
+      AUTO_REFRESH_TIME
+    );
+  </script>
+</body>
+</html>
