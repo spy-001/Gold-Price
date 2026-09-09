@@ -3,21 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ราคาทองคำแท่งไทย ล่าสุด | เช็กราคาทองวันนี้</title>
-
-  <meta name="description" content="เช็กราคาทองคำแท่ง 96.5% ล่าสุด อัปเดตรวดเร็ว ราคาซื้อ-ขายออก ประจำวันนี้">
-  <meta name="keywords" content="ราคาทอง, ราคาทองวันนี้, ราคาทองคำแท่ง, เช็กราคาทอง, ทองคำแท่ง 96.5">
-  <meta name="robots" content="index, follow">
-
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="ราคาทองคำแท่งไทย ล่าสุด | เช็กราคาทองวันนี้">
-  <meta property="og:description" content="เช็กราคาทองคำแท่ง 96.5% ล่าสุด อัปเดตรวดเร็ว ราคาซื้อ-ขายออก ประจำวันนี้">
-  <meta property="og:image" content="https://www.matichon.co.th/wp-content/uploads/2017/08/%E0%B8%97%E0%B8%AD%E0%B8%87.jpg">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="ราคาทองคำแท่งไทย ล่าสุด | เช็กราคาทองวันนี้">
-  <meta name="twitter:description" content="เช็กราคาทองคำแท่ง 96.5% ล่าสุด อัปเดตรวดเร็ว ราคาซื้อ-ขายออก ประจำวันนี้">
-  <meta name="twitter:image" content="https://www.matichon.co.th/wp-content/uploads/2017/08/%E0%B8%97%E0%B8%AD%E0%B8%87.jpg">
+  <title>ราคาทองคำแท่งไทย</title>
 
   <style>
     :root {
@@ -231,7 +217,7 @@
       position: relative;
       z-index: 1;
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
       gap: 10px;
       margin-top: 12px;
     }
@@ -246,26 +232,14 @@
     .info-label {
       display: block;
       color: var(--muted);
-      font-size: 15px;
+      font-size: 16px;
     }
 
     .info-value {
       display: block;
       color: var(--gold-dark);
-      font-size: clamp(16px, 2.8vw, 21px);
+      font-size: clamp(17px, 3vw, 22px);
       font-weight: bold;
-    }
-
-    .info-value.val-up {
-      color: var(--green);
-    }
-
-    .info-value.val-down {
-      color: var(--red);
-    }
-
-    .info-value.val-same {
-      color: var(--gray);
     }
 
     #status {
@@ -312,6 +286,14 @@
       opacity: 1;
     }
 
+    .footer {
+      margin-top: 9px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
     @media (max-width: 600px) {
       .page {
         padding: 9px 10px 14px;
@@ -344,7 +326,7 @@
       }
 
       .information {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
       }
     }
   </style>
@@ -356,6 +338,7 @@
 
     <header>
       <div class="logo">฿</div>
+
       <div>
         <h1>ราคาทองคำไทย</h1>
         <p class="subtitle">ราคาทองคำแท่ง 96.5%</p>
@@ -369,24 +352,24 @@
 
         <div class="price-row">
           <div class="price-label">รับซื้อ</div>
+
           <div class="price-box">
-            <span
-              id="barBuyArrow"
+            <span id="barBuyArrow"
               class="direction same"
-              aria-label="ราคาไม่เปลี่ยน"
-            >—</span>
+              aria-label="ราคาไม่เปลี่ยน">—</span>
+
             <span id="barBuy" class="price">-</span>
           </div>
         </div>
 
         <div class="price-row">
           <div class="price-label">ขายออก</div>
+
           <div class="price-box">
-            <span
-              id="barSellArrow"
+            <span id="barSellArrow"
               class="direction same"
-              aria-label="ราคาไม่เปลี่ยน"
-            >—</span>
+              aria-label="ราคาไม่เปลี่ยน">—</span>
+
             <span id="barSell" class="price">-</span>
           </div>
         </div>
@@ -401,11 +384,6 @@
             <span class="info-label">เวลาปรับราคา</span>
             <span id="updateTime" class="info-value">-</span>
           </div>
-
-          <div class="info-box">
-            <span class="info-label">เทียบกับเมื่อวาน</span>
-            <span id="diffYesterday" class="info-value val-same">-</span>
-          </div>
         </div>
       </section>
     </main>
@@ -415,29 +393,28 @@
     <button id="refreshButton" type="button">
       ↻ อัปเดตราคา
     </button>
+
+    <div class="footer">
+      อัปเดตอัตโนมัติทุก 20 วินาที<br>
+      ข้อมูลจากบริการที่อ้างอิงราคาสมาคมค้าทองคำ
+    </div>
   </div>
 
   <script>
-    const API_URL = "https://api.chnwt.dev/thai-gold-api/latest";
-    const STORAGE_KEY = "goldPriceLatestData";
-    const AUTO_REFRESH_TIME = 40000;
+    const API_URL =
+      "https://api.chnwt.dev/thai-gold-api/latest";
+
+    const STORAGE_KEY = "thaiGoldBarPreviousPrices";
+    const AUTO_REFRESH_TIME = 20000;
     const BUTTON_LOCK_TIME = 1500;
 
-    const refreshButton = document.getElementById("refreshButton");
+    const refreshButton =
+      document.getElementById("refreshButton");
 
     let isLoading = false;
 
     function toNumber(value) {
-      if (value === null || value === undefined || value === "") {
-        return null;
-      }
-
-      const number = Number(
-        String(value)
-          .replace(/,/g, "")
-          .replace(/[^\d.-]/g, "")
-      );
-
+      const number = Number(String(value).replace(/,/g, ""));
       return Number.isFinite(number) ? number : null;
     }
 
@@ -455,204 +432,29 @@
       }).format(number);
     }
 
-    function formatDifference(value) {
-      const number = toNumber(value);
-
-      if (number === null) {
-        return "-";
-      }
-
-      const formatted = number.toLocaleString("th-TH", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-
-      return number > 0 ? `+${formatted} บาท` : `${formatted} บาท`;
-    }
-
-    function getArrowState(changeValue) {
-      const change = toNumber(changeValue);
-
-      if (change === null || change === 0) {
-        return {
-          className: "same",
-          symbol: "—",
-          label: "ราคาไม่เปลี่ยน"
-        };
-      }
-
-      if (change > 0) {
-        return {
-          className: "up",
-          symbol: "▲",
-          label: "ราคาขึ้น"
-        };
-      }
-
-      return {
-        className: "down",
-        symbol: "▼",
-        label: "ราคาลง"
-      };
-    }
-
-    function setArrow(arrowId, changeValue) {
+    function updateArrow(arrowId, currentValue, previousValue) {
       const arrow = document.getElementById(arrowId);
-      const state = getArrowState(changeValue);
+      const current = toNumber(currentValue);
+      const previous = toNumber(previousValue);
 
-      arrow.className = `direction ${state.className}`;
-      arrow.textContent = state.symbol;
-      arrow.setAttribute("aria-label", state.label);
-    }
+      arrow.className = "direction same";
+      arrow.textContent = "—";
+      arrow.setAttribute("aria-label", "ราคาไม่เปลี่ยน");
 
-    function getStoredData() {
-      try {
-        const stored = localStorage.getItem(STORAGE_KEY);
-
-        if (!stored) {
-          return null;
-        }
-
-        const data = JSON.parse(stored);
-
-        if (!data || typeof data !== "object") {
-          return null;
-        }
-
-        return data;
-      } catch (error) {
-        console.error("ไม่สามารถอ่านข้อมูลจาก localStorage ได้", error);
-        return null;
-      }
-    }
-
-    function saveStoredData(data) {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      } catch (error) {
-        console.error("ไม่สามารถบันทึกข้อมูลลง localStorage ได้", error);
-      }
-    }
-
-    function getReliableChange(
-      price,
-      result,
-      currentBarSell,
-      previousData
-    ) {
-      const apiChangeCandidates = [
-        price?.change,
-        price?.gold_bar?.change,
-        price?.gold_bar?.change_value,
-        result?.change
-      ];
-
-      for (const candidate of apiChangeCandidates) {
-        const change = toNumber(candidate);
-
-        if (change !== null) {
-          return change;
-        }
-      }
-
-      const previousSell = toNumber(previousData?.barSell);
-
-      if (
-        currentBarSell !== null &&
-        previousSell !== null &&
-        currentBarSell !== previousSell
-      ) {
-        return currentBarSell - previousSell;
-      }
-
-      return null;
-    }
-
-    function calculateYesterdayDifference(
-      currentSell,
-      currentDate,
-      apiChange,
-      previousData
-    ) {
-      const diffElement = document.getElementById("diffYesterday");
-
-      if (currentSell === null) {
-        diffElement.textContent = "-";
-        diffElement.className = "info-value val-same";
-        return null;
-      }
-
-      let difference = toNumber(apiChange);
-
-      if (
-        difference === null &&
-        previousData &&
-        previousData.date &&
-        currentDate &&
-        previousData.date !== currentDate
-      ) {
-        const previousSell = toNumber(previousData.barSell);
-
-        if (previousSell !== null) {
-          difference = currentSell - previousSell;
-        }
-      }
-
-      if (difference === null) {
-        diffElement.textContent = "-";
-        diffElement.className = "info-value val-same";
-        return null;
-      }
-
-      diffElement.textContent = formatDifference(difference);
-
-      if (difference > 0) {
-        diffElement.className = "info-value val-up";
-      } else if (difference < 0) {
-        diffElement.className = "info-value val-down";
-      } else {
-        diffElement.className = "info-value val-same";
-      }
-
-      return difference;
-    }
-
-    function renderData(data) {
-      if (!data) {
+      if (current === null || previous === null) {
         return;
       }
 
-      const barBuy = toNumber(data.barBuy);
-      const barSell = toNumber(data.barSell);
+      if (current > previous) {
+        arrow.className = "direction up";
+        arrow.textContent = "▲";
+        arrow.setAttribute("aria-label", "ราคาขึ้น");
+      }
 
-      document.getElementById("barBuy").textContent = formatBaht(barBuy);
-      document.getElementById("barSell").textContent = formatBaht(barSell);
-
-      document.getElementById("updateDate").textContent =
-        data.date || "-";
-
-      document.getElementById("updateTime").textContent =
-        data.time || "-";
-
-      setArrow("barBuyArrow", data.change);
-      setArrow("barSellArrow", data.change);
-
-      const diffElement = document.getElementById("diffYesterday");
-      const difference = toNumber(data.difference);
-
-      if (difference === null) {
-        diffElement.textContent = "-";
-        diffElement.className = "info-value val-same";
-      } else {
-        diffElement.textContent = formatDifference(difference);
-
-        if (difference > 0) {
-          diffElement.className = "info-value val-up";
-        } else if (difference < 0) {
-          diffElement.className = "info-value val-down";
-        } else {
-          diffElement.className = "info-value val-same";
-        }
+      if (current < previous) {
+        arrow.className = "direction down";
+        arrow.textContent = "▼";
+        arrow.setAttribute("aria-label", "ราคาลง");
       }
     }
 
@@ -675,7 +477,6 @@
       lockButton();
 
       const status = document.getElementById("status");
-      const previousData = getStoredData();
 
       status.className = "";
       status.textContent = "กำลังอัปเดตราคาล่าสุด...";
@@ -691,88 +492,88 @@
 
         const data = await response.json();
 
-        if (!data || !data.response || !data.response.price) {
+        if (!data.response || !data.response.price) {
           throw new Error("รูปแบบข้อมูลไม่ถูกต้อง");
         }
 
         const result = data.response;
         const price = result.price;
 
-        const currentBarBuy = toNumber(price.gold_bar?.buy);
-        const currentBarSell = toNumber(price.gold_bar?.sell);
+        const currentBarBuy =
+          toNumber(price.gold_bar?.buy);
 
-        if (currentBarBuy === null && currentBarSell === null) {
-          throw new Error("ไม่พบราคาทองคำแท่ง");
-        }
+        const currentBarSell =
+          toNumber(price.gold_bar?.sell);
 
-        const reliableChange = getReliableChange(
-          price,
-          result,
-          currentBarSell,
-          previousData
+        const oldData = JSON.parse(
+          localStorage.getItem(STORAGE_KEY) || "null"
         );
 
-        const difference = calculateYesterdayDifference(
-          currentBarSell,
-          result.update_date,
-          reliableChange,
-          previousData
+        const sameDate =
+          oldData &&
+          oldData.updateDate === result.update_date;
+
+        const previousBarBuy =
+          sameDate ? oldData.barBuy : null;
+
+        const previousBarSell =
+          sameDate ? oldData.barSell : null;
+
+        document.getElementById("barBuy").textContent =
+          formatBaht(currentBarBuy);
+
+        document.getElementById("barSell").textContent =
+          formatBaht(currentBarSell);
+
+        updateArrow(
+          "barBuyArrow",
+          currentBarBuy,
+          previousBarBuy
         );
 
-        const latestData = {
-          barBuy: currentBarBuy,
-          barSell: currentBarSell,
-          date: result.update_date || "",
-          time: result.update_time || "",
-          change: reliableChange,
-          difference: difference,
-          savedAt: Date.now()
-        };
+        updateArrow(
+          "barSellArrow",
+          currentBarSell,
+          previousBarSell
+        );
 
-        renderData(latestData);
-        saveStoredData(latestData);
+        document.getElementById("updateDate").textContent =
+          result.update_date || "-";
+
+        document.getElementById("updateTime").textContent =
+          result.update_time || "-";
+
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify({
+            updateDate: result.update_date,
+            barBuy: currentBarBuy,
+            barSell: currentBarSell
+          })
+        );
 
         status.textContent = "อัปเดตข้อมูลสำเร็จ";
       } catch (error) {
         console.error(error);
-
-        if (previousData) {
-          renderData(previousData);
-          status.className = "error";
-          status.textContent =
-            "เชื่อมต่อข้อมูลล่าสุดไม่ได้ กำลังแสดงข้อมูลที่บันทึกไว้";
-        } else {
-          renderData({
-            barBuy: null,
-            barSell: null,
-            date: "",
-            time: "",
-            change: null,
-            difference: null
-          });
-
-          status.className = "error";
-          status.textContent =
-            "ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่อีกครั้ง";
-        }
+        status.className = "error";
+        status.textContent =
+          "ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่อีกครั้ง";
       } finally {
         isLoading = false;
       }
     }
 
-    refreshButton.addEventListener("click", loadGoldPrice);
-
-    const cachedData = getStoredData();
-
-    if (cachedData) {
-      renderData(cachedData);
-      document.getElementById("status").textContent =
-        "กำลังตรวจสอบราคาล่าสุด...";
-    }
+    refreshButton.addEventListener(
+      "click",
+      loadGoldPrice
+    );
 
     loadGoldPrice();
 
-    setInterval(loadGoldPrice, AUTO_REFRESH_TIME);
+    setInterval(
+      loadGoldPrice,
+      AUTO_REFRESH_TIME
+    );
   </script>
 </body>
 </html>
